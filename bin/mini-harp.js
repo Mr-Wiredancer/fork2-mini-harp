@@ -8,8 +8,10 @@
 			?parseInt(argv.port) 
 			:4000;
 
+	var root = argv['_'].length>0?argv['_'][0]:process.cwd();
+
 	if (port || port===0 ){
-		createMiniHarp().listen(port);
+		createMiniHarp(root).listen(port);
 		console.log('Starting mini-harp on http://localhost:'+port);
 	}else{
 		console.log('plz enter a valid port');

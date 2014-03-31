@@ -1,6 +1,7 @@
-var connect = require('connect');
+var connect = require('connect')
+	, serveStatic = require('serve-static');
 
-module.exports = function(){
+module.exports = function(dirname){
 	var app = connect();
 
 	app.use(function(req, res, next){
@@ -10,6 +11,8 @@ module.exports = function(){
 			next();
 		}
 	});
+
+	app.use(serveStatic(dirname));
 
 	return app;
 }
