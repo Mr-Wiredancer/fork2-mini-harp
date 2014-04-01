@@ -1,6 +1,7 @@
 var connect = require('connect')
 	, makeJade = require('./lib/processor/jade.js')
 	, makeLess = require('./lib/processor/less.js')
+	, path = require('path')
 	, serveStatic = require('serve-static');
 
 module.exports = function(dirname){
@@ -19,6 +20,18 @@ module.exports = function(dirname){
 			req.url = '/index.html';
 		}
 		next();
+
+	});
+
+	app.use(function(req, res, next){
+		var extname = path.extname(req.url);
+		if (extname === '.less' || extname === '.jade'){
+			console.log('here');
+			res.statusCode = 404;
+			res.end();
+		}else{
+			next();
+		}
 
 	});
 
