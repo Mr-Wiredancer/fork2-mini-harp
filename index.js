@@ -14,10 +14,16 @@ module.exports = function(dirname){
 		}
 	});
 
+	app.use(function(req, res, next){
+		if (req.url === '/'){
+			req.url = '/index.html';
+		}
+		next();
+
+	});
+
 	app.use(serveStatic(dirname));
-
 	app.use(makeJade(dirname));
-
 	app.use(makeLess(dirname));
 
 
